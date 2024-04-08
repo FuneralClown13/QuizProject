@@ -1,0 +1,26 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<ul>
+
+    <main class="container">
+        <div class="bg-body-tertiary p-3 rounded">
+            <h5>Добавить вопрос</h5>
+            <a class="btn btn-m btn-primary" href="{% url 'question_create' quiz_id %}" role="button">Создать</a>
+        </div>
+        {% for q in questions %}
+        <div class="bg-body-tertiary p-3 rounded">
+            <h5>{{q.text}}</h5>
+            <a class="btn btn-m btn-primary" href="{% url 'question_delete' quiz_id q.id %}" role="button">Удалить</a>
+        </div>
+
+        {% endfor %}
+        <div class="bg-body-tertiary p-3 rounded">
+            <h5>Добавить вопрос</h5>
+            <a class="btn btn-m btn-primary" href="{% url 'question_create' quiz_id %}" role="button">Создать</a>
+        </div>
+    </main>
+</ul>
+
+{% endblock %}

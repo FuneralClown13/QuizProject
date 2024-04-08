@@ -1,0 +1,28 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<ul>
+    <main class="container">
+        <div class="bg-body-tertiary p-3 rounded">
+            <h3>Новый опросник</h3>
+            <a class="btn btn-m btn-primary" href="{% url 'quiz_create' %}" role="button">Создать</a>
+        </div>
+    {% for q in quiz %}
+        <div class="bg-body-tertiary p-3 rounded">
+            <h3>{{q.title}}</h3>
+            <p class="lead">{{q.description}}</p>
+            <a class="btn btn-m btn-primary" href="{% url 'quiz_update' q.id %}" role="button">Редактировать</a>
+            <a class="btn btn-m btn-primary" href="{% url 'question_change' q.id %}" role="button">Редактировать вопросы</a>
+            <a class="btn btn-m btn-primary" href="{% url 'quiz_delete' q.id %}" role="button">Удалить</a>
+        </div>
+
+    {% endfor %}
+        <div class="bg-body-tertiary p-3 rounded">
+            <h3>Новый опросник</h3>
+            <a class="btn btn-m btn-primary" href="{% url 'quiz_create' %}" role="button">Создать</a>
+        </div>
+    </main>
+</ul>
+
+{% endblock %}

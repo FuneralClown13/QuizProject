@@ -1,0 +1,21 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<ul>
+
+    <main class="container">
+        <div class="bg-body-tertiary p-5 rounded">
+            <h1>Количество прохождений: {{quiz_info.count_quiz_passes}}</h1>
+            <p></p>
+
+            <p class="lead">Процент прохождений: {{quiz_info.success_rate}}</p>
+            <p></p>
+
+            <p class="lead">Самый сложный вопрос: {{quiz_info.difficult_question.text}}</p>
+        </div>
+    </main>
+
+</ul>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+<main class="container">
+
+    <form id="surveyForm" action="{% url 'quiz_update' quiz.id %}" method="post">
+        <legend>Создание нового опросника</legend>
+        <div class="mb-3">
+            <label for="title" class="form-label">Название опросника</label>
+            <input type="text" id="title" name="title" class="form-control" placeholder="Название опросника"
+                   value="{{quiz.title}}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Описание</label>
+            <input type="text" id="description" name="description" class="form-control"
+                   placeholder="{{quiz.description}}" value="{{quiz.description}}"required>
+        </div>
+        </div>
+
+        <input type="hidden" name="method" value="post">
+
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</main>
+
+{% endblock %}

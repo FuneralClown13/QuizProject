@@ -1,0 +1,19 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <ul>
+        {% for q in quiz %}
+        <div class="bg-body-tertiary p-3 rounded">
+            <h3>{{q.title}}</h3>
+            <p class="lead">{{q.description}}</p>
+            <a class="btn btn-m btn-primary" href="{% url 'questions' q.id %}" role="button">Пройти тест</a>
+        </div>
+
+        {% endfor %}
+</main>
+
+</ul>
+
+{% endblock %}

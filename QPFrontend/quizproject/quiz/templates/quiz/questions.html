@@ -1,0 +1,34 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<ul>
+
+
+    <main class="container">
+        <form id="surveyForm" method="post" action="/submit_responses">
+            {% for q in questions %}
+
+            <div class="bd-example m-0 border-0">
+
+                <h5 for="question {{ q.id }}">{{ q.text }}</h5>
+                <input type="radio" class="btn btn-secondary" id="question1" name="{{ q.id }}" value="да" required>
+                Да
+                <input type="radio" class="btn btn-secondary" id="question2" name="{{ q.id }}" value="нет"> Нет
+
+            </div>
+            <p></p>
+
+            {% endfor %}
+
+            <input type="hidden" name="quiz_id" value="{{ quiz_id }}">
+
+            <p></p>
+
+            <button class="btn btn-secondary" type="submit">Отправить ответы</button>
+        </form>
+    </main>
+
+</ul>
+
+{% endblock %}
