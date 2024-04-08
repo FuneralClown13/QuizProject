@@ -7,6 +7,10 @@ from .response_answers import ResponseAnswers
 
 
 def index(request):
+    """
+        Обработчик для главной страницы
+    """
+
     response = requests.get('http://127.0.0.1:4000/api/v1/quiz/')
     quiz = response.json()
     return render(request, 'quiz/index.html'
@@ -14,11 +18,19 @@ def index(request):
 
 
 def about(request):
+    """
+        Обработчик для страницы about
+    """
+
     return render(request, 'quiz/about.html',
                   {'title': 'about'})
 
 
 def quiz(request):
+    """
+        Обработчик для списка тестов
+    """
+
     response = requests.get('http://127.0.0.1:4000/api/v1/quiz/')
     quiz_data = response.json()
     return render(request, 'quiz/quiz.html'
@@ -26,6 +38,9 @@ def quiz(request):
 
 
 def quiz_change(request):
+    """
+        Обработчик для страницы редактора тестов
+    """
     response = requests.get('http://127.0.0.1:4000/api/v1/quiz/')
     quiz_data = response.json()
     return render(request, 'quiz/quiz_change.html'
@@ -34,6 +49,9 @@ def quiz_change(request):
 
 @csrf_exempt
 def quiz_create(request):
+    """
+        Обработчик создания теста
+    """
     if request.POST:
         json_data = {'title': request.POST['title'], 'description': request.POST['description']}
         requests.post('http://127.0.0.1:4000/api/v1/quiz/', json=json_data)
@@ -45,6 +63,9 @@ def quiz_create(request):
 
 @csrf_exempt
 def quiz_update(request, quiz_id):
+    """
+        Обработчик обновления теста
+    """
     if request.POST:
         json_data = {'title': request.POST['title'], 'description': request.POST['description']}
         print(json_data, quiz_id)
@@ -58,11 +79,17 @@ def quiz_update(request, quiz_id):
 
 
 def quiz_delete(request, quiz_id):
+    """
+            Обработчик удаления теста
+    """
     requests.delete(f'http://127.0.0.1:4000/api/v1/quiz/{quiz_id}/')
     return redirect(quiz_change)
 
 
 def questions(request, quiz_id=1):
+    """
+        Обработчик для страницы со списком вопросов теста pk = quiz_id
+    """
     response = requests.get(f'http://127.0.0.1:4000/api/v1/quizquestions/{quiz_id}/')
     questions_data = response.json()
     return render(request, 'quiz/questions.html'
@@ -71,6 +98,9 @@ def questions(request, quiz_id=1):
 
 @csrf_exempt
 def question_change(request, quiz_id=1):
+    """
+        Обработчик для страницы редактора вопросов
+    """
     response = requests.get(f'http://127.0.0.1:4000/api/v1/quizquestions/{quiz_id}/')
     questions_data = response.json()
     return render(request, 'quiz/questions_change.html'
@@ -79,6 +109,9 @@ def question_change(request, quiz_id=1):
 
 @csrf_exempt
 def question_create(request, quiz_id=2):
+    """
+        Обработчик создания вопроса
+    """
     if request.POST:
         json_data = {'text': request.POST['text'], 'correct_answer': request.POST['correct_answer'], 'quiz': quiz_id}
         requests.post('http://127.0.0.1:4000/api/v1/question/', json=json_data)
@@ -89,11 +122,17 @@ def question_create(request, quiz_id=2):
 
 
 def question_delete(request, quiz_id, question_id):
+    """
+        Обработчик удаления вопроса
+    """
     requests.delete(f'http://127.0.0.1:4000/api/v1/question/{question_id}/')
     return redirect(question_change, quiz_id=quiz_id)
 
 
 def result(request, quiz_id):
+    """
+        Обработчик для страницы результатов/аналитики теста
+    """
     response = requests.get(f'http://127.0.0.1:4000/api/v1/quizinfo/{quiz_id}/')
     quizinfo_data = response.json()
     return render(request, 'quiz/quizinf.html'
@@ -102,6 +141,10 @@ def result(request, quiz_id):
 
 @csrf_exempt
 def submit_responses(request):
+    """
+        Функция для подготовки и отправки на сервер
+
+    """
     if request.POST:
         answers = ResponseAnswers(request.POST)
         answers.execute()
