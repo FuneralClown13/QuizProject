@@ -40,7 +40,7 @@ class QuizInfo:
         for q in questions:
 
             q_success_rate = q['correct_passes'] / (q['passes'] or 1)
-            if q_success_rate < success_rate:
+            if q_success_rate <= success_rate:
                 success_rate = q_success_rate
                 difficult_question_id = q['id']
 
