@@ -32,18 +32,18 @@ class QuizInfo:
         Самый сложный вопрос в тесте
         """
         instance = Question.objects.filter(quiz=self.quiz)
-        data = QuestionSerializer(instance, many=True).data
+        questions = QuestionSerializer(instance, many=True).data
 
-        result = 1
-        result_id = 1
+        success_rate = 1
+        difficult_question_id = 1
 
-        for d in data:
+        for q in questions:
 
-            r = d['correct_passes'] / (d['passes'] or 1)
-            if r < result:
-                result = r
-                result_id = d['id']
+            q_success_rate = q['correct_passes'] / (q['passes'] or 1)
+            if q_success_rate < success_rate:
+                success_rate = q_success_rate
+                difficult_question_id = q['id']
 
-        r = QuestionSerializer(Question.objects.get(pk=result_id)).data
-        r['per'] = result
-        return r
+        difficult_question = QuestionSerializer(Question.objects.get(pk=difficult_question_id)).data
+        difficult_question['per'] = success_rate
+        return difficult_question
